@@ -1,0 +1,357 @@
+/**
+* =================================================================
+* TrakPoint Fleet Management - Main Stylesheet (style.css)
+* =================================================================
+* File ini berisi semua aturan styling untuk aplikasi.
+*
+* Struktur:
+* 1. Root Variables & Font Imports
+* 2. Global Resets & Body Styling
+* 3. Layout Utama (Dashboard, Sidebar, Navbar)
+* 4. Komponen UI (Kartu, Tabel, Tombol, Form)
+* 5. Halaman Spesifik (Auth Pages)
+* 6. Animasi & Efek (Spinner, Skeleton, Transitions)
+* 7. Aturan Responsif (Media Queries)
+* =================================================================
+*/
+
+/* 1. Root Variables & Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #4c63d2;
+    --secondary-color: #5cb85c;
+    --danger-color: #d9534f;
+    --warning-color: #f0ad4e;
+    --info-color: #5bc0de;
+    --dark-color: #2c3e50;      /* Untuk Navbar */
+    --dark-blue-bg: #2c3e50;  /* Untuk Sidebar */
+    --light-color: #ecf0f1;
+    --light-gray-bg: #f0f2f5;  /* Warna background utama konten */
+}
+
+/* 2. Global Resets & Body Styling */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-color);
+    background-color: var(--light-gray-bg);
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body.dashboard-body {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px; /* Memberi ruang untuk navbar yang fixed */
+}
+
+/* 3. Layout Utama */
+
+/* Container Dashboard */
+.dashboard-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Konten Utama */
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Navbar (Header) */
+.navbar.fixed-top {
+    background: var(--dark-color) !important;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0 1.5rem;
+}
+.navbar-brand-logo .icon-bg {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    margin-right: 12px;
+}
+.navbar-brand-logo h5, .navbar-brand-logo small {
+    margin: 0;
+    line-height: 1.2;
+    color: white;
+}
+.navbar-brand-logo small {
+    color: #aeb1b6;
+    font-size: 0.8rem;
+}
+.navbar .dropdown-toggle img {
+    width: 32px;
+    height: 32px;
+}
+.navbar .nav-link, .navbar .dropdown-toggle {
+    color: white !important;
+}
+.navbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: var(--dark-blue-bg); /* WARNA DITAMBAHKAN DI SINI */
+    flex-shrink: 0;
+    height: calc(100vh - 60px);
+    position: sticky;
+    top: 60px;
+    padding-top: 0;
+}
+.sidebar .nav-link {
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    margin: 0;
+    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    color: #bdc3c7;
+    transition: all 0.2s ease-in-out;
+}
+.sidebar .nav-link i.fas {
+    width: 20px;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.sidebar .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--primary-color);
+}
+.sidebar .nav-link.active {
+    color: #fff;
+    background: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 600;
+}
+.sidebar .sidebar-divider {
+    margin: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar .sidebar-heading {
+    padding: 0 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #8892b0;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.sidebar-profile-box {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0,0,0,0.1);
+}
+
+/* Sidebar untuk mobile */
+.offcanvas.offcanvas-start {
+    width: 250px;
+    background-color: var(--dark-blue-bg);
+}
+
+/* 4. Komponen UI */
+
+/* Kartu Statistik */
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-left: 5px solid var(--primary-color);
+}
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.stats-card.border-success { border-left-color: var(--secondary-color); }
+.stats-card.border-warning { border-left-color: var(--warning-color); }
+.stats-card.border-danger { border-left-color: var(--danger-color); }
+.stats-card.border-info { border-left-color: var(--info-color); }
+
+.stats-number { font-size: 2.2rem; font-weight: 700; color: var(--dark-color); }
+.stats-label { color: #6c757d; font-size: 0.9rem; text-transform: uppercase; font-weight: 500; }
+.stats-icon { font-size: 2rem; opacity: 0.7; }
+
+/* Tabel */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+    padding: 15px;
+    vertical-align: middle;
+    border-top: none;
+}
+.table tbody td {
+    vertical-align: middle;
+    padding: 15px;
+}
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Badge Status */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+}
+.status-bergerak { background-color: #d4edda; color: #155724; }
+.status-idle { background-color: #fff3cd; color: #856404; }
+.status-pelanggaran { background-color: #f8d7da; color: #721c24; animation: pulse-danger 1.5s infinite; }
+.status-maintenance { background-color: #d1ecf1; color: #0c5460; }
+/* Driver statuses */
+.status-active { background-color: #d4edda; color: #155724; } /* Matches .status-bergerak for visual consistency */
+.status-inactive { background-color: #e2e3e5; color: #495057; }
+.status-suspended { background-color: #f8d7da; color: #721c24; } /* Matches .status-pelanggaran */
+.status-terminated { background-color: #dc3545; color: #ffffff; }
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+.map-container, .activity-feed {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+.map-placeholder {
+    flex-grow: 1;
+    background: #e9ecef;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #6c757d;
+}
+.activity-feed .feed-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.activity-item {
+    display: flex;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f0f2f5;
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin-right: 1rem; color: #fff;
+}
+.activity-icon.bg-success { background-color: var(--secondary-color) !important; }
+.activity-icon.bg-warning { background-color: var(--warning-color) !important; }
+.activity-icon.bg-danger { background-color: var(--danger-color) !important; }
+.activity-icon.bg-info { background-color: var(--info-color) !important; }
+.activity-text p { margin-bottom: 0.25rem; font-size: 0.9rem; }
+.activity-text .time { font-size: 0.75rem; color: #6c757d; }
+
+
+/* 5. Halaman Spesifik (Auth Pages) */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #11183b 0%, #764ba2 100%);
+}
+.auth-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    animation: slideUp 0.6s ease-out;
+}
+.auth-icon {
+    width: 80px; height: 80px; background: var(--primary-color);
+    border-radius: 50%; display: flex; justify-content: center;
+    align-items: center; margin: 0 auto 20px; font-size: 30px; color: white;
+}
+.auth-title { text-align: center; color: var(--dark-color); margin-bottom: 10px; font-weight: 600; }
+.auth-subtitle { text-align: center; color: #6c757d; margin-bottom: 30px; font-size: 15px; }
+
+/* 6. Animasi & Efek */
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse-danger { 0% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(217, 83, 79, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0); } }
+@keyframes pulse-bg { 0% { background-color: #f0f2f5; } 50% { background-color: #e9ecef; } 100% { background-color: #f0f2f5; } }
+
+/* Loading Overlay & Spinner */
+.loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.85); display: flex;
+    justify-content: center; align-items: center; z-index: 9999;
+    backdrop-filter: blur(4px); display: none; /* Changed to none for default */
+}
+.spinner {
+    width: 50px; height: 50px; border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color); border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Skeleton Loader */
+.skeleton-loader {
+    animation: pulse-bg 1.5s infinite;
+}
+/* Ensure skeleton-text is always present inside td for proper height */
+tbody.loading td .skeleton-text {
+    width: 80%; height: 20px; border-radius: 4px;
+    background-color: #e0e0e0; /* Fallback for skeleton */
+    margin: 0 auto; /* Center skeleton text in table cells */
+}
+/* Penyesuaian agar skeleton tidak terlalu besar */
+tbody.loading td {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+
+/* Notifikasi Pop-up */
+.notification-popup {
+    position: fixed; top: 80px; right: 20px; z-index: 10000; min-width: 320px;
+    animation: slideInRight 0.5s forwards;
+}
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* 7. Aturan Responsif */
+@media (max-width: 991.98px) {
+    .sidebar { display: none; }
+    .main-content { padding: 1.5rem; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
